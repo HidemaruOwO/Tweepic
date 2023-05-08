@@ -4,5 +4,5 @@ Get an icon from your Twitter ID
 ## How to use
 
 ```
-localhost:3000/?id-hidemaru_owo
+https://tweepic.v-sli.me/?id-hidemaru_owo
 ```
