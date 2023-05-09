@@ -1,4 +1,5 @@
 from flask import Flask, request
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -7,17 +8,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 app = Flask(__name__)
 
-
-@app.route('/', methods=['GET'])
+@app.route('/')
 def get_twitter_icon():
-    # idをクエリから取得する
+    # ユーザーIDを取得する
     user_id = request.args.get('id')
 
-    # ヘッドレスモードを有効にする
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(options=options)
+    # ヘッドレスChromeを起動する
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(options=chrome_options)
 
     # Twitterのプロフィールページにアクセスする
     driver.get(f'https://twitter.com/{user_id}/photo')
@@ -33,9 +32,9 @@ def get_twitter_icon():
     # ブラウザを終了する
     driver.quit()
 
-    # icon_urlを文字列で返す
-    return icon_url
-
+    # 結果を文字列形式で返す
+    return str(icon_url)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
+
